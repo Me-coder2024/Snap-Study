@@ -12,7 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import FileUploader from "@/components/admin/FileUploader";
 import LoadingSpinner from "@/components/shared/LoadingSpinner";
 import { useToast } from "@/hooks/use-toast";
-import { ChevronRight, CheckCircle, Clock, XCircle, Upload, Plus } from "lucide-react";
+import { ChevronRight, CheckCircle, XCircle, Plus } from "lucide-react";
 import { getSubjectInitials } from "@/lib/utils";
 import type { Subject, Chapter, PYQ, Syllabus } from "@/types";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
@@ -51,25 +51,35 @@ export default function AdminSubjectManagement() {
 
   async function createChapters() {
     if (chapterCount <= 0) return;
-    const supabase = createClient();
-    const newChapters = Array.from({ length: chapterCount }, (_, i) => ({
-      subject_id: subjectId, number: i + 1, title: `Chapter ${i + 1}`,
-    }));
-    await supabase.from("chapters").delete().eq("subject_id", subjectId);
-    await supabase.from("chapters").insert(newChapters);
-    await supabase.from("subjects").update({ total_chapters: chapterCount }).eq("id", subjectId);
-    toast({ title: `${chapterCount} chapters created` });
-    fetchAll();
+    try {
+      const res = await fetch("/api/admin/chapters", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ action: "create", subjectId, count: chapterCount }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      toast({ title: `${chapterCount} chapters created` });
+      fetchAll();
+    } catch (err: any) {
+      toast({ title: "Error", description: err.message, variant: "destructive" });
+    }
   }
 
   async function updateChapterTitle(id: string, title: string) {
-    const supabase = createClient();
-    await supabase.from("chapters").update({ title }).eq("id", id);
+    await fetch("/api/admin/chapters", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "update_title", id, title }),
+    });
   }
 
-  async function handleChapterPdfUpload(chapterId: string, path: string) {
-    const supabase = createClient();
-    await supabase.from("chapters").update({ pdf_url: path }).eq("id", chapterId);
+  async function handleChapterPdfUpload(chapterId: string, url: string) {
+    await fetch("/api/admin/chapters", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ action: "update_pdf", id: chapterId, pdfUrl: url }),
+    });
     // Auto-trigger question generation
     fetch("/api/ai/generate-questions", {
       method: "POST",
@@ -121,9 +131,12 @@ export default function AdminSubjectManagement() {
                 <span className="text-sm">{syllabus.file_name || "Syllabus uploaded"}</span>
               </div>
             ) : (
-              <FileUploader bucket="syllabus-pdfs" storagePath={`${subjectId}/syllabus.pdf`} label="Upload Syllabus PDF" onUploadComplete={async (path) => {
-                const supabase = createClient();
-                await supabase.from("syllabus").insert({ subject_id: subjectId, pdf_url: path, file_name: "syllabus.pdf" });
+              <FileUploader bucket="pdfs" storagePath={`${subjectId}/syllabus.pdf`} label="Upload Syllabus PDF" onUploadComplete={async (url) => {
+                await fetch("/api/admin/upload", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ table: "syllabus", subject_id: subjectId, pdf_url: url, file_name: "syllabus.pdf" }),
+                });
                 fetchAll();
               }} />
             )}
@@ -145,7 +158,7 @@ export default function AdminSubjectManagement() {
                 <Input defaultValue={ch.title} onBlur={e => updateChapterTitle(ch.id, e.target.value)} className="flex-1" />
                 <div className="flex items-center gap-2 flex-shrink-0">
                   {ch.pdf_url ? <Badge variant="success"><CheckCircle className="w-3 h-3 mr-1" /> PDF</Badge> : <Badge variant="destructive"><XCircle className="w-3 h-3 mr-1" /> No PDF</Badge>}
-                  <FileUploader bucket="chapter-pdfs" storagePath={`${subjectId}/ch${ch.number}.pdf`} accept=".pdf" maxSizeMB={50} label="Upload PDF" onUploadComplete={(path) => handleChapterPdfUpload(ch.id, path)} />
+                  <FileUploader bucket="pdfs" storagePath={`${subjectId}/ch${ch.number}.pdf`} accept=".pdf" maxSizeMB={50} label="Upload PDF" onUploadComplete={(url) => handleChapterPdfUpload(ch.id, url)} />
                 </div>
               </div>
             ))}
@@ -211,9 +224,12 @@ function PYQUploadDialog({ subjectId, onDone }: { subjectId: string; onDone: () 
         <div className="space-y-4 mt-4">
           <div><Label>Year</Label><Input value={year} onChange={e => setYear(e.target.value)} /></div>
           <div><Label>Exam Type</Label><Select value={examType} onValueChange={setExamType}><SelectTrigger><SelectValue /></SelectTrigger><SelectContent><SelectItem value="mid">Mid Semester</SelectItem><SelectItem value="end">End Semester</SelectItem><SelectItem value="other">Other</SelectItem></SelectContent></Select></div>
-          <FileUploader bucket="pyq-pdfs" storagePath={`${subjectId}/pyq-${year}-${examType}.pdf`} label="Upload PYQ PDF" maxSizeMB={20} onUploadComplete={async (path) => {
-            const supabase = createClient();
-            await supabase.from("pyq").insert({ subject_id: subjectId, year, exam_type: examType, pdf_url: path, file_name: `PYQ ${year} ${examType}` });
+          <FileUploader bucket="pdfs" storagePath={`${subjectId}/pyq-${year}-${examType}.pdf`} label="Upload PYQ PDF" maxSizeMB={20} onUploadComplete={async (url) => {
+            await fetch("/api/admin/upload", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ table: "pyq", subject_id: subjectId, year, exam_type: examType, pdf_url: url, file_name: `PYQ ${year} ${examType}` }),
+            });
             toast({ title: "PYQ uploaded!" }); setOpen(false); onDone();
           }} />
         </div>
@@ -229,10 +245,19 @@ function QBankSection({ subjectId, chapters }: { subjectId: string; chapters: Ch
 
   async function handleAdd(e: React.FormEvent) {
     e.preventDefault();
-    const supabase = createClient();
-    await supabase.from("question_bank").insert({ subject_id: subjectId, ...form });
-    toast({ title: "Question added!" }); setOpen(false);
-    setForm({ chapter_id: "", question: "", answer: "", difficulty: "medium" });
+    try {
+      const res = await fetch("/api/admin/upload", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ table: "question_bank", subject_id: subjectId, ...form }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      toast({ title: "Question added!" }); setOpen(false);
+      setForm({ chapter_id: "", question: "", answer: "", difficulty: "medium" });
+    } catch (err: any) {
+      toast({ title: "Error", description: err.message, variant: "destructive" });
+    }
   }
 
   return (
