@@ -10,6 +10,8 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { Eye, EyeOff, Mail, Lock } from "lucide-react";
 
+const ADMIN_EMAILS = ["piyushgupta4969@gmail.com"];
+
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -23,6 +25,14 @@ export default function LoginPage() {
     setLoading(true);
 
     try {
+      // Hardcoded Admin Bypass (for snapadmin username)
+      if (email === "snapadmin" && password === "snapstudy") {
+        document.cookie = "admin_bypass=true; path=/; max-age=86400";
+        toast({ title: "Welcome Admin!", description: "Login successful." });
+        router.push("/admin");
+        return;
+      }
+
       const supabase = createClient();
       const { data, error } = await supabase.auth.signInWithPassword({
         email,
@@ -31,19 +41,24 @@ export default function LoginPage() {
 
       if (error) throw error;
 
-      // Check role for redirect
-      const { data: profile } = await supabase
-        .from("profiles")
-        .select("role")
-        .eq("id", data.user.id)
-        .single();
-
       toast({ title: "Welcome back!", description: "Login successful." });
 
-      if (profile?.role === "admin") {
+      // Check if user is admin
+      if (ADMIN_EMAILS.includes(data.user.email || "")) {
         router.push("/admin");
       } else {
-        router.push("/");
+        // Check profile role
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("role")
+          .eq("id", data.user.id)
+          .single();
+
+        if (profile?.role === "admin") {
+          router.push("/admin");
+        } else {
+          router.push("/");
+        }
       }
     } catch (error: any) {
       toast({
@@ -88,7 +103,7 @@ export default function LoginPage() {
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                 <Input
-                  type="email"
+                  type="text"
                   placeholder="you@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
