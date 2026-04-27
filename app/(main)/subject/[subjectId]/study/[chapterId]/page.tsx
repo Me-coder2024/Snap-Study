@@ -28,12 +28,28 @@ export default function StudyPage() {
         .single();
 
       if (chapterData?.pdf_url) {
-        const { data: signedUrlData } = await supabase.storage
-          .from("chapter-pdfs")
-          .createSignedUrl(chapterData.pdf_url, 3600);
+        const url = chapterData.pdf_url;
 
-        if (signedUrlData) {
-          setPdfUrl(signedUrlData.signedUrl);
+        // If it's already a full URL (public URL from storage), use it directly
+        if (url.startsWith("http://") || url.startsWith("https://")) {
+          setPdfUrl(url);
+        } else {
+          // It's a relative path — try to create a signed URL from the 'pdfs' bucket
+          const { data: signedUrlData } = await supabase.storage
+            .from("pdfs")
+            .createSignedUrl(url, 3600);
+
+          if (signedUrlData) {
+            setPdfUrl(signedUrlData.signedUrl);
+          } else {
+            // Fallback: try to get public URL
+            const { data: publicData } = supabase.storage
+              .from("pdfs")
+              .getPublicUrl(url);
+            if (publicData?.publicUrl) {
+              setPdfUrl(publicData.publicUrl);
+            }
+          }
         }
       }
 
