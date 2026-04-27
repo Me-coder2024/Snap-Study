@@ -4,7 +4,6 @@ import { useState, useRef } from "react";
 import { Upload, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/hooks/use-toast";
-import { createClient } from "@/lib/supabase/client";
 import { cn } from "@/lib/utils";
 
 interface FileUploaderProps {
@@ -37,13 +36,23 @@ export default function FileUploader({ bucket, storagePath, accept = ".pdf", max
     setProgress(30);
 
     try {
-      const supabase = createClient();
+      // Upload via server API route (uses service role key, bypasses RLS)
+      const formData = new FormData();
+      formData.append("file", f);
+      formData.append("storagePath", storagePath);
+
       setProgress(60);
-      const { data, error: uploadError } = await supabase.storage.from(bucket).upload(storagePath, f, { upsert: true });
-      if (uploadError) throw uploadError;
+      const res = await fetch("/api/admin/storage", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+
       setProgress(100);
       setStatus("done");
-      onUploadComplete(data.path);
+      onUploadComplete(data.publicUrl || data.path);
       toast({ title: "Uploaded!", description: f.name });
     } catch (err: any) {
       setStatus("error");
