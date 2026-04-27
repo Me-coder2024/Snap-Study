@@ -1,0 +1,81 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (87,52)<a class='flex items-center gap-0.5' href='/' />
+	[1] (50,52)<span >Snap />
+	[2] (117,52)<span >Study />
+[3] (341,52)<a class='text-gray-600 font-normal text-sm hover:text-[#1a1a1a] transition-colors duration-200' href='#semesters'>Courses />
+[4] (424,52)<a class='text-gray-600 font-normal text-sm hover:text-[#1a1a1a] transition-colors duration-200' href='#semesters'>Semesters />
+[5] (509,52)<a class='text-gray-600 font-normal text-sm hover:text-[#1a1a1a] transition-colors duration-200' href='#features'>AI Buddy />
+[6] (600,52)<a class='text-gray-600 font-normal text-sm hover:text-[#1a1a1a] transition-colors duration-200' href='#how-it-works'>Testimonials />
+[7] (687,52)<a class='text-gray-600 font-normal text-sm hover:text-[#1a1a1a] transition-colors duration-200' href='#contact'>Contact />
+[8] (927,53)<a class='rounded-full border-2 border-[#1a1a1a] text-[#1a1a1a] font-semibold px-5 py-2 text-sm hover:bg-[#1a1a1a] hover:text-white transition-all duration-300' href='/login'>Get Started />
+Select your current semester to access all subjects, chapters, and AI-powered study tools.
+[9] (134,289)<a class='group relative bg-white rounded-2xl p-6 border-2 border-gray-100 hover:border-primary/40 hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden' href='/semester/1' />
+	[10] (218,251)<span >1 />
+	[11] (49,229)<div  />
+	[12] (134,311)<div  />
+		[13] (134,287)<h3 >Semester
+1 />
+		[14] (79,339)<span >6
+Subjects />
+[15] (378,289)<a class='group relative bg-white rounded-2xl p-6 border-2 border-gray-100 hover:border-primary/40 hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden' href='/semester/2' />
+	[16] (456,251)<span >2 />
+	[17] (293,229)<div  />
+	[18] (378,311)<div  />
+		[19] (378,287)<h3 >Semester
+2 />
+		[20] (323,339)<span >6
+Subjects />
+[21] (622,289)<a class='group relative bg-white rounded-2xl p-6 border-2 border-gray-100 hover:border-primary/40 hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden' href='/semester/3' />
+	[22] (699,251)<span >3 />
+	[23] (537,229)<div  />
+	[24] (622,311)<div  />
+		[25] (622,287)<h3 >Semester
+3 />
+		[26] (566,339)<span >5
+Subjects />
+[27] (866,289)<a class='group relative bg-white rounded-2xl p-6 border-2 border-gray-100 hover:border-primary/40 hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden' href='/semester/4' />
+	[28] (942,251)<span >4 />
+	[29] (781,229)<div  />
+	[30] (866,311)<div  />
+		[31] (866,287)<h3 >Semester
+4 />
+		[32] (810,339)<span >5
+Subjects />
+[33] (134,544)<a class='group relative bg-white rounded-2xl p-6 border-2 border-gray-100 hover:border-primary/40 hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden' href='/semester/5' />
+	[34] (212,507)<span >5 />
+	[35] (49,484)<div  />
+	[36] (134,567)<div  />
+		[37] (134,543)<h3 >Semester
+5 />
+		[38] (79,594)<span >5
+Subjects />
+[39] (378,544)<a class='group relative bg-white rounded-2xl p-6 border-2 border-gray-100 hover:border-primary/40 hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden' href='/semester/6' />
+	[40] (455,507)<span >6 />
+	[41] (293,484)<div  />
+	[42] (378,567)<div  />
+		[43] (378,543)<h3 >Semester
+6 />
+		[44] (323,594)<span >4
+Subjects />
+[45] (622,544)<a class='group relative bg-white rounded-2xl p-6 border-2 border-gray-100 hover:border-primary/40 hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden' href='/semester/7' />
+	[46] (701,507)<span >7 />
+	[47] (537,484)<div  />
+	[48] (622,567)<div  />
+		[49] (622,543)<h3 >Semester
+7 />
+		[50] (567,594)<span >4
+Subjects />
+[51] (866,544)<a class='group relative bg-white rounded-2xl p-6 border-2 border-gray-100 hover:border-primary/40 hover:shadow-lg transition-all duration-300 cursor-pointer overflow-hidden' href='/semester/8' />
+	[52] (943,507)<span >8 />
+	[53] (781,484)<div  />
+	[54] (866,567)<div  />
+		[55] (866,543)<h3 >Semester
+8 />
+		[56] (811,594)<span >3
+Subjects />
+Features
+
+</current_dom>

@@ -1,0 +1,24 @@
+[0] (148,44)<a class='flex items-center gap-0.5' href='/' />
+	[1] (121,44)<span >Snap />
+	[2] (170,44)<span >Study />
+[3] (382,44)<a class='text-gray-600 font-normal text-sm hover:text-[#1a1a1a] transition-colors duration-200' href='#semesters'>Courses />
+[4] (444,44)<a class='text-gray-600 font-normal text-sm hover:text-[#1a1a1a] transition-colors duration-200' href='#semesters'>Semesters />
+[5] (507,44)<a class='text-gray-600 font-normal text-sm hover:text-[#1a1a1a] transition-colors duration-200' href='#features'>AI Buddy />
+[6] (574,44)<a class='text-gray-600 font-normal text-sm hover:text-[#1a1a1a] transition-colors duration-200' href='#how-it-works'>Testimonials />
+[7] (639,44)<a class='text-gray-600 font-normal text-sm hover:text-[#1a1a1a] transition-colors duration-200' href='#contact'>Contact />
+[8] (862,44)<a class='rounded-full border-2 border-[#1a1a1a] text-[#1a1a1a] font-semibold px-5 py-2 text-sm hover:bg-[#1a1a1a] hover:text-white transition-all duration-300' href='/login'>Get Started />
+📚
+Study with AI
+SNAP
+💪
+STUDY
+Our platform turns your semester PDFs into an intelligent learning engine with AI that reads, explains, and quizzes you.
+🧑‍💻
+👩‍🎓
+👨‍🔬
++2K
+Students
+Exploring smarter learning
+[9] (540,923)<a class='rounded-full bg-[#1a1a1a] text-white px-6 py-3 font-semibold text-sm hover:bg-primary transition-all duration-300 flex items-center gap-2 shadow-lg' href='/semester/1'>Start exploring />
+	[10] (575,923)<span >→ />
+[11] (648,923)<a class='rounded-full border-2 border-[#1a1a1a] text-[#1a1a1a] px-6 py-3 font-medium text-sm hover:bg-[#1a1a1a] hover:text-white transition-all duration-300' href='#features'>Learn more />

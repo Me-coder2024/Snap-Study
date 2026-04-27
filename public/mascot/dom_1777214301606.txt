@@ -1,0 +1,50 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (270,27)<a class='flex items-center gap-0.5' href='/' />
+	[1] (256,27)<span >Snap />
+	[2] (283,27)<span >Study />
+[3] (447,27)<a class='text-muted font-normal text-sm hover:text-white transition-colors duration-200' href='#semesters'>Courses />
+[4] (487,27)<a class='text-muted font-normal text-sm hover:text-white transition-colors duration-200' href='#semesters'>Semesters />
+[5] (527,27)<a class='text-muted font-normal text-sm hover:text-white transition-colors duration-200' href='#features'>AI Buddy />
+[6] (561,27)<a class='text-muted font-normal text-sm hover:text-white transition-colors duration-200' href='#how-it-works'>About />
+[7] (732,28)<a class='rounded-full bg-white text-dark font-semibold px-5 py-2 text-sm hover:bg-primary hover:text-white transition-all duration-300' href='/login'>Get Started />
+5
+Semester
+5
+5
+Subjects
+6
+Semester
+6
+4
+Subjects
+7
+Semester
+7
+4
+Subjects
+8
+Semester
+8
+3
+Subjects
+Everything You Need. Nothing You Don't.
+Built for engineering students who want to study smarter, not harder.
+AI Study Buddy
+Reads your current PDF page and explains it like a friend would. Ask anything, get instant answers.
+PYQ Pattern Analysis
+AI finds patterns from past exam papers and generates high-probability questions for you.
+Chapter Practice
+Quiz yourself chapter by chapter with AI-generated MCQs and instant explanations.
+Admin Dashboard
+Full content management — upload PDFs, PYQs, syllabi, question banks per semester.
+Always-On AI
+Groq-powered AI with rotating key system ensures zero downtime for all students.
+Secure Storage
+PDFs stored in encrypted Supabase storage, accessible via signed URLs with timed expiry.
+How It Works
+From upload to exam success in four simple steps.
+
+</current_dom>

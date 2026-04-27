@@ -1,0 +1,82 @@
+<current_dom_explanation>
+This is a temporary snapshot of the current page's DOM structure. The DOM will change if you navigate to or interact with another page. Use a tool like browser_get_dom to capture and preserve the DOM in your trajectory if needed for later reference.
+</current_dom_explanation>
+<current_dom>
+[0] (270,27)<a class='flex items-center gap-0.5' href='/' />
+	[1] (256,27)<span >Snap />
+	[2] (283,27)<span >Study />
+[3] (447,27)<a class='text-muted font-normal text-sm hover:text-white transition-colors duration-200' href='#semesters'>Courses />
+[4] (487,27)<a class='text-muted font-normal text-sm hover:text-white transition-colors duration-200' href='#semesters'>Semesters />
+[5] (527,27)<a class='text-muted font-normal text-sm hover:text-white transition-colors duration-200' href='#features'>AI Buddy />
+[6] (561,27)<a class='text-muted font-normal text-sm hover:text-white transition-colors duration-200' href='#how-it-works'>About />
+[7] (732,28)<a class='rounded-full bg-white text-dark font-semibold px-5 py-2 text-sm hover:bg-primary hover:text-white transition-all duration-300' href='/login'>Get Started />
+AK
+SR
+MP
++2K Students
+[8] (506,274)<a class='rounded-full bg-white text-dark px-6 py-3 font-semibold text-sm hover:bg-primary hover:text-white transition-all duration-300 flex items-center gap-2' href='/semester/1'>Start Exploring />
+	[9] (528,274)<span >→ />
+[10] (574,274)<a class='rounded-full border border-white/20 text-white px-6 py-3 font-medium text-sm hover:bg-white/10 transition-all duration-300' href='#features'>Learn More />
+Scroll
+Choose Your Semester
+Select your current semester to access all subjects, chapters, and AI-powered study tools.
+[11] (297,584)<a class='group relative bg-card border border-white/5 rounded-2xl p-6 hover:border-primary/40 hover:bg-card2 transition-all duration-300 cursor-pointer overflow-hidden' href='/semester/1'>1 />
+	1
+	[12] (297,584)<div  />
+		[13] (297,569)<h3 >Semester
+1 />
+		[14] (260,600)<span >6
+Subjects />
+[15] (432,584)<a class='group relative bg-card border border-white/5 rounded-2xl p-6 hover:border-primary/40 hover:bg-card2 transition-all duration-300 cursor-pointer overflow-hidden' href='/semester/2'>2 />
+	2
+	[16] (432,584)<div  />
+		[17] (432,569)<h3 >Semester
+2 />
+		[18] (395,600)<span >6
+Subjects />
+[19] (567,584)<a class='group relative bg-card border border-white/5 rounded-2xl p-6 hover:border-primary/40 hover:bg-card2 transition-all duration-300 cursor-pointer overflow-hidden' href='/semester/3'>3 />
+	3
+	[20] (567,584)<div  />
+		[21] (567,569)<h3 >Semester
+3 />
+		[22] (530,600)<span >5
+Subjects />
+[23] (702,584)<a class='group relative bg-card border border-white/5 rounded-2xl p-6 hover:border-primary/40 hover:bg-card2 transition-all duration-300 cursor-pointer overflow-hidden' href='/semester/4'>4 />
+	4
+	[24] (702,584)<div  />
+		[25] (702,569)<h3 >Semester
+4 />
+		[26] (665,600)<span >5
+Subjects />
+[27] (297,693)<a class='group relative bg-card border border-white/5 rounded-2xl p-6 hover:border-primary/40 hover:bg-card2 transition-all duration-300 cursor-pointer overflow-hidden' href='/semester/5'>5 />
+	5
+	[28] (297,693)<div  />
+		[29] (297,678)<h3 >Semester
+5 />
+		[30] (260,709)<span >5
+Subjects />
+[31] (432,693)<a class='group relative bg-card border border-white/5 rounded-2xl p-6 hover:border-primary/40 hover:bg-card2 transition-all duration-300 cursor-pointer overflow-hidden' href='/semester/6'>6 />
+	6
+	[32] (432,693)<div  />
+		[33] (432,678)<h3 >Semester
+6 />
+		[34] (395,709)<span >4
+Subjects />
+[35] (567,693)<a class='group relative bg-card border border-white/5 rounded-2xl p-6 hover:border-primary/40 hover:bg-card2 transition-all duration-300 cursor-pointer overflow-hidden' href='/semester/7'>7 />
+	7
+	[36] (567,693)<div  />
+		[37] (567,678)<h3 >Semester
+7 />
+		[38] (530,709)<span >4
+Subjects />
+[39] (702,693)<a class='group relative bg-card border border-white/5 rounded-2xl p-6 hover:border-primary/40 hover:bg-card2 transition-all duration-300 cursor-pointer overflow-hidden' href='/semester/8'>8 />
+	8
+	[40] (702,693)<div  />
+		[41] (702,678)<h3 >Semester
+8 />
+		[42] (665,709)<span >3
+Subjects />
+Everything You Need. Nothing You Don't.
+Built for engineering students who want to study smarter, not harder.
+
+</current_dom>
