@@ -35,19 +35,30 @@ export default function SignupPage() {
     setLoading(true);
     try {
       const supabase = createClient();
-      const { error } = await supabase.auth.signUp({
+      const { data, error } = await supabase.auth.signUp({
         email,
         password,
-        options: { data: { full_name: fullName } },
+        options: {
+          data: { full_name: fullName },
+          // This tells Supabase to NOT require email confirmation
+          emailRedirectTo: `${window.location.origin}/`,
+        },
       });
 
       if (error) throw error;
 
-      toast({
-        title: "Account created!",
-        description: "Please check your email for verification.",
-      });
-      router.push("/login");
+      // If session exists, the user is auto-confirmed — redirect directly
+      if (data.session) {
+        toast({ title: "Account created!", description: "Welcome to SnapStudy!" });
+        router.push("/");
+      } else {
+        // Email confirmation is required
+        toast({
+          title: "Account created!",
+          description: "Please check your email for verification, then log in.",
+        });
+        router.push("/login");
+      }
     } catch (error: any) {
       toast({
         title: "Signup failed",
@@ -57,6 +68,14 @@ export default function SignupPage() {
     } finally {
       setLoading(false);
     }
+  }
+
+  async function handleGoogleSignup() {
+    const supabase = createClient();
+    await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: { redirectTo: `${window.location.origin}/` },
+    });
   }
 
   return (
@@ -156,13 +175,7 @@ export default function SignupPage() {
           </div>
 
           <button
-            onClick={async () => {
-              const supabase = createClient();
-              await supabase.auth.signInWithOAuth({
-                provider: "google",
-                options: { redirectTo: `${window.location.origin}/` },
-              });
-            }}
+            onClick={handleGoogleSignup}
             className="w-full border border-gray-200 rounded-xl py-3 flex items-center justify-center gap-3 font-medium text-sm text-gray-700 hover:bg-gray-50 transition-colors"
           >
             <svg className="w-5 h-5" viewBox="0 0 24 24">
