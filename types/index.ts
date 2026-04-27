@@ -2,6 +2,16 @@
 // Snap Study — TypeScript Interfaces
 // ============================================
 
+export interface Course {
+  id: string;
+  name: string;
+  code: string;
+  duration_years: number;
+  icon_color: string;
+  description: string;
+  created_at: string;
+}
+
 export interface Semester {
   id: number;
   number: number;
@@ -12,6 +22,7 @@ export interface Semester {
 export interface Subject {
   id: string;
   semester_id: number;
+  course_id: string | null;
   name: string;
   code: string;
   description: string;
