@@ -1,11 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 /* ============================================
-   Snap Study — Global Styles
+   Global Base
    ============================================ */
-
 @layer base {
   * {
     @apply border-gray-200;
@@ -13,57 +14,439 @@
 
   body {
     @apply bg-white text-gray-900 antialiased;
+    font-family: 'DM Sans', var(--font-inter), sans-serif;
   }
 
-  /* Custom scrollbar */
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
   }
+
   ::-webkit-scrollbar-track {
     @apply bg-transparent;
   }
+
   ::-webkit-scrollbar-thumb {
     @apply bg-gray-300 rounded-full;
   }
+
   ::-webkit-scrollbar-thumb:hover {
     @apply bg-gray-400;
   }
 }
 
+/* ============================================
+   HERO — Matching TechTots reference exactly
+   ============================================ */
+
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  background: #ffffff;
+  overflow: hidden;
+  padding: 80px 48px 40px;
+  display: flex;
+  align-items: center;
+}
+
+/* ── Left text block ── */
+.hero-left {
+  position: absolute;
+  left: 48px;
+  top: 50%;
+  transform: translateY(-55%);
+  z-index: 12;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Right text block ── */
+.hero-right {
+  position: absolute;
+  right: 48px;
+  top: 50%;
+  transform: translateY(-45%);
+  z-index: 12;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+
+/* Small heading line (SNAP, FOR) */
+.hero-sm {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: clamp(48px, 7vw, 100px);
+  color: #0D0D0D;
+  letter-spacing: -2px;
+  line-height: 1;
+  display: block;
+  user-select: none;
+}
+
+/* Large heading line (STUDY, ALL) */
+.hero-lg {
+  font-family: 'Black Han Sans', sans-serif;
+  font-size: clamp(80px, 13vw, 190px);
+  color: #0D0D0D;
+  letter-spacing: -5px;
+  line-height: 0.9;
+  display: block;
+  user-select: none;
+}
+
+/* Wrapper for large text + play button */
+.hero-lg-wrap {
+  position: relative;
+  display: inline-block;
+}
+
+/* Play circle button — visible at overlap of STUDY text and mascot */
+.play-circle {
+  position: absolute;
+  right: -24px;
+  bottom: 30%;
+  width: 44px;
+  height: 44px;
+  background: #D4DFC4;
+  border: 2px solid #c2d1ae;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 25;
+  cursor: pointer;
+  transition: transform 0.2s;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.play-circle:hover {
+  transform: scale(1.1);
+}
+
+/* Description paragraph */
+.hero-desc {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: #888;
+  max-width: 240px;
+  text-align: right;
+  margin-top: 20px;
+  line-height: 1.65;
+}
+
+/* ── Center mascot — centered in gap, no float ── */
+.hero-mascot {
+  position: absolute;
+  left: 61%;
+  top: 46%;
+  transform: translate(-50%, -50%);
+  width: clamp(360px, 38vw, 620px);
+  z-index: 8;
+  pointer-events: none;
+}
+
+.mascot-img {
+  width: 100% !important;
+  height: auto !important;
+  display: block;
+  mix-blend-mode: multiply;
+  filter: contrast(1.05) brightness(1.02);
+}
+
+/* ── Spinning badge — top-right ── */
+.rotating-badge {
+  position: absolute;
+  top: 80px;
+  right: 48px;
+  z-index: 20;
+}
+
+.badge-circle {
+  width: clamp(72px, 6vw, 100px);
+  height: clamp(72px, 6vw, 100px);
+  background: #E8C99A;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  animation: badgeSpin 10s linear infinite;
+}
+
+.badge-star {
+  position: absolute;
+  font-size: 22px;
+  color: #E07A20;
+  z-index: 2;
+  animation: badgeSpinRev 10s linear infinite;
+}
+
+.badge-text-svg {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+@keyframes badgeSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes badgeSpinRev {
+  to {
+    transform: rotate(-360deg);
+  }
+}
+
+/* ── Simple Hover Animation (Fixed Position) ── */
+@keyframes hoverFloat {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-15px) rotate(5deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+.animate-hover {
+  animation: hoverFloat 4s ease-in-out infinite;
+  z-index: 30;
+}
+
+/* ── Bottom bar ── */
+.hero-bottom {
+  position: absolute;
+  bottom: 28px;
+  left: 48px;
+  right: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 20;
+}
+
+/* Avatars */
+.hero-avatars {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar-stack {
+  display: flex;
+  align-items: center;
+}
+
+.avatar-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  object-fit: cover;
+}
+
+.avatar-badge {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #7B5CF0;
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #fff;
+  margin-left: -8px;
+}
+
+.avatar-info {
+  display: flex;
+  flex-direction: column;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.avatar-info strong {
+  font-size: 13px;
+  color: #0D0D0D;
+}
+
+.avatar-info span {
+  font-size: 11px;
+  color: #999;
+}
+
+/* CTA buttons */
+.hero-ctas {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #0D0D0D;
+  color: #fff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+
+.btn-primary:hover {
+  background: #7B5CF0;
+}
+
+.btn-arrow {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 12px 24px;
+  border-radius: 999px;
+  border: 1.5px solid #0D0D0D;
+  color: #0D0D0D;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.btn-outline:hover {
+  background: #0D0D0D;
+  color: #fff;
+}
+
+/* Scroll arrow */
+.hero-scroll {
+  color: #999;
+}
+
+/* ── Mobile ── */
+@media (max-width: 900px) {
+  .hero {
+    padding: 80px 20px 140px;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .hero-left,
+  .hero-right {
+    position: relative;
+    left: auto;
+    right: auto;
+    top: auto;
+    transform: none;
+    text-align: center;
+    align-items: center;
+  }
+
+  .hero-right {
+    margin-top: 8px;
+  }
+
+  .hero-desc {
+    text-align: center;
+    margin: 12px auto 0;
+  }
+
+  .hero-mascot {
+    position: relative;
+    left: auto;
+    top: auto;
+    transform: none;
+    width: 220px;
+    margin: 16px auto;
+  }
+
+  .hero-bottom {
+    flex-direction: column;
+    gap: 14px;
+    left: 20px;
+    right: 20px;
+    bottom: 16px;
+  }
+
+  .play-circle {
+    display: none;
+  }
+
+  .rotating-badge {
+    top: 74px;
+    right: 12px;
+  }
+
+}
+
+/* ============================================
+   Utilities
+   ============================================ */
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
 
-  /* Glass effect for navbars */
   .glass {
-    @apply backdrop-blur-md bg-dark/80 border-b border-white/5;
+    @apply backdrop-blur-md bg-white/80 border-b border-gray-200/50;
   }
 
-  /* Dot grid background for auth pages */
   .dot-grid {
-    background-image: radial-gradient(circle, #6C47FF15 1px, transparent 1px);
+    background-image: radial-gradient(circle, #7B5CF015 1px, transparent 1px);
     background-size: 24px 24px;
   }
 
-  /* Gradient text */
   .gradient-text {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary;
   }
 
-  /* Card hover lift */
   .card-hover {
     @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5;
   }
 
-  /* Staggered animation delays */
-  .delay-100 { animation-delay: 100ms; }
-  .delay-200 { animation-delay: 200ms; }
-  .delay-300 { animation-delay: 300ms; }
-  .delay-400 { animation-delay: 400ms; }
-  .delay-500 { animation-delay: 500ms; }
-  .delay-600 { animation-delay: 600ms; }
-  .delay-700 { animation-delay: 700ms; }
-  .delay-800 { animation-delay: 800ms; }
+  .delay-100 {
+    animation-delay: 100ms;
+  }
+
+  .delay-200 {
+    animation-delay: 200ms;
+  }
+
+  .delay-300 {
+    animation-delay: 300ms;
+  }
+
+  .delay-400 {
+    animation-delay: 400ms;
+  }
+
+  .delay-500 {
+    animation-delay: 500ms;
+  }
+
+  .delay-600 {
+    animation-delay: 600ms;
+  }
+
+  .delay-700 {
+    animation-delay: 700ms;
+  }
+
+  .delay-800 {
+    animation-delay: 800ms;
+  }
 }
