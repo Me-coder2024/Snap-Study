@@ -39,18 +39,40 @@ export default function AdminSemesterPage() {
   async function handleAddSubject(e: React.FormEvent) {
     e.preventDefault();
     setSaving(true);
-    const supabase = createClient();
-    const { error } = await supabase.from("subjects").insert({ semester_id: semId, ...form });
-    if (error) { toast({ title: "Error", description: error.message, variant: "destructive" }); }
-    else { toast({ title: "Subject added!" }); setDialogOpen(false); setForm({ name: "", code: "", description: "", icon_color: "#6C47FF", total_chapters: 0 }); fetchSubjects(); }
+    try {
+      const res = await fetch("/api/admin/subjects", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ semester_id: semId, ...form }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error);
+      toast({ title: "Subject added!" });
+      setDialogOpen(false);
+      setForm({ name: "", code: "", description: "", icon_color: "#6C47FF", total_chapters: 0 });
+      fetchSubjects();
+    } catch (err: any) {
+      toast({ title: "Error", description: err.message, variant: "destructive" });
+    }
     setSaving(false);
   }
 
   async function handleDelete(id: string) {
     if (!confirm("Delete this subject?")) return;
-    const supabase = createClient();
-    await supabase.from("subjects").delete().eq("id", id);
-    fetchSubjects();
+    try {
+      const res = await fetch("/api/admin/subjects", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id }),
+      });
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.error);
+      }
+      fetchSubjects();
+    } catch (err: any) {
+      toast({ title: "Error", description: err.message, variant: "destructive" });
+    }
   }
 
   if (loading) return <div className="flex items-center justify-center h-96"><LoadingSpinner size="lg" /></div>;
