@@ -124,6 +124,8 @@ export default function PDFViewer({ pdfUrl, chapterTitle, onPageTextChange }: PD
           <Page
             pageNumber={currentPage}
             scale={scale}
+            renderTextLayer={false}
+            renderAnnotationLayer={false}
             onRenderSuccess={onPageRenderSuccess}
             loading={
               <div className="w-[600px] h-[800px] animate-pulse bg-gray-200 rounded-lg" />
