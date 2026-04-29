@@ -14,7 +14,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/b
 interface PDFViewerProps {
   pdfUrl: string;
   chapterTitle?: string;
-  onPageTextChange?: (text: string) => void;
+  onPageTextChange?: (text: string, pageNumber: number) => void;
 }
 
 export default function PDFViewer({ pdfUrl, chapterTitle, onPageTextChange }: PDFViewerProps) {
@@ -22,29 +22,42 @@ export default function PDFViewer({ pdfUrl, chapterTitle, onPageTextChange }: PD
   const [currentPage, setCurrentPage] = useState(1);
   const [scale, setScale] = useState(1.2);
   const [isLoading, setIsLoading] = useState(true);
-  const pageRef = useRef<any>(null);
 
-  function onDocumentLoadSuccess({ numPages }: { numPages: number }) {
-    setNumPages(numPages);
-    setIsLoading(false);
-  }
+  // Cache the loaded PDFDocumentProxy so we never re-fetch the PDF for text extraction
+  const pdfDocRef = useRef<any>(null);
+
+  const onDocumentLoadSuccess = useCallback(
+    async (pdf: any) => {
+      pdfDocRef.current = pdf;
+      setNumPages(pdf.numPages);
+      setIsLoading(false);
+
+      // Extract text from page 1 right away
+      if (onPageTextChange) {
+        try {
+          const page = await pdf.getPage(1);
+          const textContent = await page.getTextContent();
+          const text = textContent.items.map((item: any) => item.str).join(" ");
+          onPageTextChange(text, 1);
+        } catch (err) {
+          console.error("Failed to extract initial page text:", err);
+        }
+      }
+    },
+    [onPageTextChange]
+  );
 
   const onPageRenderSuccess = useCallback(async () => {
-    if (!onPageTextChange) return;
+    if (!onPageTextChange || !pdfDocRef.current) return;
     try {
-      // Use PDF.js to extract text from the current page
-      const loadingTask = pdfjs.getDocument(pdfUrl);
-      const pdf = await loadingTask.promise;
-      const page = await pdf.getPage(currentPage);
+      const page = await pdfDocRef.current.getPage(currentPage);
       const textContent = await page.getTextContent();
-      const text = textContent.items
-        .map((item: any) => item.str)
-        .join(" ");
-      onPageTextChange(text);
+      const text = textContent.items.map((item: any) => item.str).join(" ");
+      onPageTextChange(text, currentPage);
     } catch (err) {
       console.error("Failed to extract page text:", err);
     }
-  }, [pdfUrl, currentPage, onPageTextChange]);
+  }, [currentPage, onPageTextChange]);
 
   return (
     <div className="flex flex-col h-full bg-gray-50">
