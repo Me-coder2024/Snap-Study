@@ -15,7 +15,13 @@ export default function StudyPage() {
   const [chapter, setChapter] = useState<Chapter | null>(null);
   const [pdfUrl, setPdfUrl] = useState<string>("");
   const [currentPageText, setCurrentPageText] = useState("");
+  const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [loading, setLoading] = useState(true);
+
+  function handlePageTextChange(text: string, pageNum?: number) {
+    setCurrentPageText(text);
+    if (pageNum !== undefined) setCurrentPageNumber(pageNum);
+  }
 
   useEffect(() => {
     async function fetchChapter() {
@@ -84,7 +90,7 @@ export default function StudyPage() {
             <PDFViewer
               pdfUrl={pdfUrl}
               chapterTitle={chapter.title}
-              onPageTextChange={setCurrentPageText}
+              onPageTextChange={(text, pageNum) => handlePageTextChange(text, pageNum)}
             />
           ) : (
             <div className="flex items-center justify-center h-full bg-gray-50">
@@ -93,7 +99,7 @@ export default function StudyPage() {
           )}
         </div>
         <div className="w-[35%] h-full">
-          <AIBuddy currentPageText={currentPageText} chapterId={chapterId} />
+          <AIBuddy currentPageText={currentPageText} currentPageNumber={currentPageNumber} chapterId={chapterId} />
         </div>
       </div>
 
@@ -110,7 +116,7 @@ export default function StudyPage() {
                 <PDFViewer
                   pdfUrl={pdfUrl}
                   chapterTitle={chapter.title}
-                  onPageTextChange={setCurrentPageText}
+                  onPageTextChange={(text, pageNum) => handlePageTextChange(text, pageNum)}
                 />
               ) : (
                 <div className="flex items-center justify-center h-full bg-gray-50">
@@ -121,7 +127,7 @@ export default function StudyPage() {
           </TabsContent>
           <TabsContent value="buddy" className="mt-4">
             <div className="h-[70vh] rounded-xl overflow-hidden border border-gray-200">
-              <AIBuddy currentPageText={currentPageText} chapterId={chapterId} />
+              <AIBuddy currentPageText={currentPageText} currentPageNumber={currentPageNumber} chapterId={chapterId} />
             </div>
           </TabsContent>
         </Tabs>
