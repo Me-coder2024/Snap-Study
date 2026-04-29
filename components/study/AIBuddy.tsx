@@ -8,6 +8,7 @@ import type { Message } from "@/types";
 
 interface AIBuddyProps {
   currentPageText: string;
+  currentPageNumber?: number;
   chapterId: string;
 }
 
@@ -29,11 +30,11 @@ const quickActions = [
   },
 ];
 
-export default function AIBuddy({ currentPageText, chapterId }: AIBuddyProps) {
+export default function AIBuddy({ currentPageText, currentPageNumber, chapterId }: AIBuddyProps) {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
-      content: "Hey there! 👋 I'm **SnapBuddy**, your AI study assistant. I can see the PDF page you're reading. Ask me anything about it, or try the quick actions below!",
+      content: "Hey there! 👋 I'm **SnapBuddy**, your personal AI study teacher. I'm reading this PDF page along with you and will help you understand every concept deeply. Ask me anything, or use the quick actions below!",
       timestamp: new Date(),
     },
   ]);
@@ -64,7 +65,8 @@ export default function AIBuddy({ currentPageText, chapterId }: AIBuddyProps) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           message: userMessage,
-          currentPageText: currentPageText?.slice(0, 3000) || "",
+          currentPageText: currentPageText || "",
+          currentPageNumber: currentPageNumber ?? 1,
           chapterId,
           conversationHistory: messages.slice(-8),
         }),
